@@ -626,6 +626,15 @@ def parse_map(args, map_dict, step_location, db_update_queue, wh_update_queue):
              len(pokestops),
              len(gyms))
 
+    if len(pokemons) + len(pokestops) + len(gyms) == 0:
+        args.ban_tick += 1
+        print(" ===> ban %d" % args.ban_tick)
+        if args.ban_tick <= 10:
+            args.scan_delay += 1
+    else:
+        args.ban_tick = 0
+        args.scan_delay = args.org_scan_delay
+
     db_update_queue.put((ScannedLocation, {0: {
         'latitude': step_location[0],
         'longitude': step_location[1],
