@@ -165,6 +165,9 @@ def get_args():
 
     args = parser.parse_args()
 
+    args.ban_tick = 0
+    args.org_scan_delay = args.scan_delay
+
     if args.only_server:
         if args.location is None:
             parser.print_usage()
